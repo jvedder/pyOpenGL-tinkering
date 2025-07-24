@@ -1,0 +1,8 @@
+# ignore python cache
+__pycache__/
+
+#ignore old files
+junkyard/
+
+#ignore images
+*.png
