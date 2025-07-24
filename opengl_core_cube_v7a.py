@@ -6,6 +6,7 @@ from OpenGL.GL.shaders import compileProgram, compileShader
 import numpy as np
 import pyrr
 import time
+import save_image
 
 # Vertex shader source code with lighting calculations
 vertex_shader_source = """
@@ -231,7 +232,7 @@ def main():
     )
     
     # Camera position - moved back to accommodate larger torus
-    camera_pos = np.array([0.0, 0.0, 30.0], dtype=np.float32)
+    camera_pos = np.array([0.0, 0.0, 40.0], dtype=np.float32)
     view = pyrr.matrix44.create_look_at(
         camera_pos,            # Camera position
         [0.0, 0.0, 0.0],       # Target position
@@ -239,16 +240,17 @@ def main():
     )
     
     # Lighting properties - adjusted for larger scene
-    light_pos = np.array([15.0, 10.0, 15.0], dtype=np.float32)
+    light_pos = np.array([30.0, 30.0, 30.0], dtype=np.float32)
     light_color = np.array([1.0, 1.0, 1.0], dtype=np.float32)  # White light
     ambient_strength = 0.1
     specular_strength = 0.5
     shininess = 32
     
-    rotation_x = 0.0
+    rotation_x = 90.0
     rotation_y = 0.0
     
     # Main loop
+    save = True
     while not glfw.window_should_close(window):
         # Handle events
         glfw.poll_events()
@@ -292,6 +294,10 @@ def main():
         
         # Swap buffers
         glfw.swap_buffers(window)
+
+        if save:
+            save_image.save(window, "screenshot.png")
+            save = False
         
         # Small delay to control rotation speed
         time.sleep(0.016)  # ~60 FPS
