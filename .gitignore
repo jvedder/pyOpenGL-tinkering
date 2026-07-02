@@ -6,3 +6,6 @@ junkyard/
 
 #ignore images
 *.png
+
+#ignore macOS
+.DS_Store

@@ -172,7 +172,11 @@ def main():
         return
     
     glfw.make_context_current(window)
-    
+
+    # Generate and bind a Vertex Array Object ID required for macOS
+    vao = glGenVertexArrays(1)
+    glBindVertexArray(vao)
+
     # Enable depth testing
     glEnable(GL_DEPTH_TEST)
     
